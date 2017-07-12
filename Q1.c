@@ -1,6 +1,17 @@
 #include <stdio.h>
 #include <stdint.h>
 
+uint32_t bit_reverse_u32(uint32_t x)
+{
+    uint32_t mask = ~0, n = x;
+    for (int i = 4; i >= 0; i--) {
+        mask ^= mask << (1 << i);
+        n = ((n & ~mask) >> (1 << i)) | ((n & mask) << (1 << i));
+    }
+    return n;
+}
+
+
 uint32_t bit_reverse_recursive(uint32_t x, int length)
 {
     static int pos = 0;
@@ -26,7 +37,7 @@ void print_bit(uint32_t x)
 {
     for (int i = 0; i < 32; i++) {
         uint32_t temp = x & (1 << (31 - i));
-        printf("%d", temp > 0 ? 1 : 0);
+        printf("%d", temp != 0 ? 1 : 0);
     }
     printf("\n");
 }
@@ -35,6 +46,6 @@ void print_bit(uint32_t x)
 int main()
 {
     int x = 1207959552;
-    print_bit(bit_reverse_recursive(x, 32));
+    print_bit(bit_reverse_u32(x));
     print_bit(x);
 }
