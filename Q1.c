@@ -1,6 +1,16 @@
 #include <stdio.h>
 #include <stdint.h>
 
+uint32_t bit_reverse_recursive(uint32_t x, int length)
+{
+    static int pos = 0;
+    if (length == 2)
+        return ((x & (1 << pos++)) << 1) | ((x & (1 << pos++)) >> 1);
+    else
+        return (bit_reverse_recursive(x, length / 2) << length / 2)
+            |  (bit_reverse_recursive(x, length / 2) >> length / 2);
+}
+
 uint32_t func(uint32_t x)
 {
     uint32_t n = x;
@@ -24,6 +34,7 @@ void print_bit(uint32_t x)
 
 int main()
 {
-    int x = 25;
-    print_bit(func(x));
+    int x = 1207959552;
+    print_bit(bit_reverse_recursive(x, 32));
+    print_bit(x);
 }
