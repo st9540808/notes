@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include "print_bit.h"
 
 uint32_t bit_reverse_u32(uint32_t x)
 {
@@ -42,20 +43,6 @@ uint32_t func(uint32_t x)
     n = ((n & 0xcccccccc) >>  2) | ((n & 0x33333333) <<  2);
     n = ((n & 0xaaaaaaaa) >>  1) | ((n & 0x55555555) <<  1);
     return n;
-}
-
-void print_bit_u32(uint32_t x)
-{
-    for (int i = 0; i < 32; i++)
-        printf("%d", (x & (1 << 31 - i)) != 0 ? 1 : 0);
-    printf("\n");
-}
-
-void print_bit_u16(uint16_t x)
-{
-    for (int i = 0; i < 16; i++)
-        printf("%d", (x & (1 << 15 - i)) != 0 ? 1 : 0);
-    printf("\n");
 }
 
 
