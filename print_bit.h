@@ -2,6 +2,7 @@
 #define print_bit
 
 #include <stdio.h>
+#include <stdint.h>
 
 void print_bit_u32(uint32_t x)
 {
